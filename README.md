@@ -1,13 +1,53 @@
-# MIPS
-MIPS Processor
+# Single-Cycle MIPS Processor in Verilog
+MIPS Processor in Verilog
 
-Research purpose only, this is a my first attempt to write a MIPS processor back in 2011. It was not finished at the time, I plan to finish. 
+> [!IMPORTANT]
+> Research purpose only, this is a my first attempt to write a MIPS processor back in 2011. It was not finished at the time, I plan to finish. 
+
+This repository contains a Verilog implementation of a single-cycle MIPS (Microprocessor without Interlocked Pipeline Stages) processor. The project is designed to simulate and understand the fundamental components of a MIPS architecture, including the datapath, control unit, and instruction execution.
+
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture Planned](#architecture-planned)
+- [Documentation](#documentation)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Cloning the Repository](#cloning-the-repository)
+  - [Simulating the Design](#simulating-the-design)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+The MIPS processor is a classic RISC (Reduced Instruction Set Computer) architecture widely used in academic settings to teach computer organization and design. This project implements a **single-cycle** version of the MIPS architecture in Verilog, focusing on the core components such as:
+
+- **Instruction Fetch (IF)**
+- **Instruction Decode (ID)**
+- **Execution (EX)**
+- **Memory Access (MEM)**
+- **Write Back (WB)**
+
+The design is simulated using **Icarus Verilog (iverilog)** and waveforms are visualized using **GTKWave**.
+
+## Features
+
+- **Single-cycle implementation**: Executes one instruction per clock cycle.
+- **Basic Instruction Set**: Supports a subset of MIPS instructions, including:
+  - `ADD`, `SUB`, `AND`, `OR`, `SLT`
+  - `LW` (Load Word), `SW` (Store Word)
+  - `BEQ` (Branch if Equal), `J` (Jump)
+- **Simulation Ready**: Includes testbenches for functional verification.
 
 ## Architecture planned
 
 ![alt text](mipsarch.png)
 
-## Documentation (In PT)
+## Documentation
+
+> [!CAUTION]
+> For now, this documentation it's only in Portuguese.
 
 Para este estudo será utilizado apenas 31 instruções da tabela principal de decode do instruction set da especificação do MIPS, que são descritas abaixo:
 
@@ -160,3 +200,93 @@ A unidade de controle para as duas implementações será uma lógica combinacio
 - Instrução ORI
 
 - Instrução XORI
+
+## Prerequisites
+
+To simulate and test the Verilog code, you need the following tools installed:
+
+- **Icarus Verilog (iverilog)**: For compiling and simulating Verilog code.
+- **GTKWave**: For viewing waveform outputs.
+- **Make (optional)**: For automating the build and simulation process.
+
+### Installation
+
+#### On Ubuntu/Debian
+```bash
+sudo apt-get install iverilog gtkwave
+```
+
+#### On macOS (using Homebrew)
+```bash
+brew install icarus-verilog gtkwave
+```
+
+#### On Windows
+
+- Download and install [Icarus Verilog](http://iverilog.icarus.com/).
+- Download and install [GTKWave](http://gtkwave.sourceforge.net/).
+
+## Getting Started
+
+### Cloning the Repository
+```bash
+git clone https://github.com/your-username/mips-processor-verilog.git
+cd mips-processor-verilog
+```
+
+### Simulating the Design
+1. Compile the Verilog code:
+
+```bash
+iverilog -o mips_simulation -s testbench mips_processor.v testbench.v
+```
+
+2. Run the simulation:
+
+```bash
+vvp mips_simulation
+```
+
+3. View the waveform:
+
+```bash
+gtkwave waveform.vcd
+```
+
+4. Automate with Make (optional):
+If a Makefile is provided, you can simply run:
+
+```bash
+make simulate
+make view
+```
+
+## Project Structure
+
+```
+mips-processor-verilog/
+├── src/                  # Verilog source files
+│   ├── mips_processor.v  # Main MIPS processor module
+│   ├── alu.v            # Arithmetic Logic Unit
+│   ├── control_unit.v    # Control Unit
+│   ├── reg_file.v       # Register File
+│   └── ...              # Other modules
+├── testbench/            # Testbench files
+│   └── testbench.v       # Main testbench
+├── waveform.vcd          # Generated waveform file
+├── Makefile              # Makefile for automation
+└── README.md             # This file
+```
+
+##  Contributing
+Contributions are welcome! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Commit your changes.
+4. Submit a pull request.
+
+Please ensure your code follows the existing style and includes appropriate testbenches.
+
+## License
+This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) file for details.
