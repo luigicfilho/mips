@@ -5,7 +5,7 @@ Research purpose only, this is a my first attempt to write a MIPS processor back
 
 ## Architecture planned
 
-![alt text](mipsarch.png)
+![alt text](docs/mipsarch.png)
 
 ## Documentation (In PT)
 
@@ -60,30 +60,30 @@ Para a primeira versão será implementado o data path sem pipeline e será desc
 
 De acordo com a arquitetura do MIPS, será necessário um PC (Program Counter), para apontar o fluxo do programa que estará sendo executado, que servirá de “endereço” para a memória. A mesma deverá ao ser selecionado o endereço, entregar no barramento de dados da mesma a instrução que será executada pelo processador, enquanto o PC é incrementado paro o próximo endereço, este passo geralmente é chamado de Instruction Fech. O diagrama em blocos abaixo representa o Instruction fech do MIPS:
 
-![alt text](image.png)
+![alt text](docs/image.png)
 
 Lembrando que todas as linhas são barramentos de 32-bits.
 
 Após ser capturada a instrução, o próximo passo é decodificá-la, para isso será necessário outros componentes, como register file para capturar os registros que serão utilizados na instrução, um signal extension para instruções que precisem de um e uma unidade para decodificar a instrução, esse passo geralmente é chamado de Instruction Decoder. O Diagrama abaixo representa a fase de Instruction decoder do MIPS:
 
-![alt text](image-1.png)
+![alt text](docs/image-1.png)
 
 As instruções do tipo J-Type, podem ser resolvidas nesse estágio, já que são alterações diretas no registrador PC, controladas pelo instruction decoder unit, que também controla outros mux’s que serão apresentados mais a frente.
 
 O próximo estágio é chamado estágio de execução que de fato onde será processada a instrução, nesse estágio que se encontra a ULA (Unidade lógica e aritmética), precisa-se selecionar controles para o que será alimentado na ULA, necessitando de controles paralelos, neste estágio se encontra algumas operações fora da ULA para execução de instruções do tipo branch, como comparadores e somadores mesmos junto com seus controles. Que por sua vez são controlados pelos sinais vindo do estágio anterior da unidade de decodificação. Esse estágio tem seu diagrama mostrado abaixo:
 
-![alt text](image-2.png)
+![alt text](docs/image-2.png)
 
 
 Os tamanhos dos barramentos de controle não estão descriminados, pois podem ser mudados ao decorrer do projeto.
 
 O próximo estágio é para caso necessite escrita em memória de dados, usada nas instruções LW e SW, caso contrário o resultado do estágio anterior é diretamente repassado para o próximo estágio, este estágio também é conhecido como estágio de memória e tem seu diagrama mostrado abaixo:
 
-![alt text](image-3.png)
+![alt text](docs/image-3.png)
 
 Após esses passos, resta apenas escrever as respostas novamente no register file, para isso é acrescentado um estágio chamado Write Back que possui seu diagrama de blocos como o apresentado abaixo:
 
-![alt text](image-4.png)
+![alt text](docs/image-4.png)
 
 
 Implementação
